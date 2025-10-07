@@ -881,3 +881,234 @@ INFO 2025-10-07 22:16:46,167 basehttp "GET /accounts/logout/ HTTP/1.1" 302 0
 INFO 2025-10-07 22:16:46,174 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
 INFO 2025-10-07 22:16:46,180 basehttp "GET /accounts/login/ HTTP/1.1" 200 3560
 INFO 2025-10-07 22:17:00,211 autoreload Watching for file changes with StatReloader
+INFO 2025-10-07 22:17:03,630 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:17:04,724 decorators Пользователь ника1 (engineer): вошел в систему
+INFO 2025-10-07 22:17:04,727 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:17:04,746 middleware Запрос: {'user': 'ника1', 'path': '/accounts/dashboard/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:17:04,760 basehttp "GET /accounts/dashboard/ HTTP/1.1" 200 13279
+INFO 2025-10-07 22:17:19,605 middleware Запрос: {'user': 'ника1', 'path': '/accounts/logout/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:17:19,616 basehttp "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:17:19,621 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:17:19,629 basehttp "GET /accounts/login/ HTTP/1.1" 200 3560
+INFO 2025-10-07 22:17:23,039 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:17:24,181 decorators Пользователь ника2 (manager): вошел в систему
+INFO 2025-10-07 22:17:24,189 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:17:24,199 middleware Запрос: {'user': 'ника2', 'path': '/accounts/dashboard/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:17:24,206 basehttp "GET /accounts/dashboard/ HTTP/1.1" 200 20004
+INFO 2025-10-07 22:17:40,285 middleware Запрос: {'user': 'ника2', 'path': '/accounts/manager/projects/create/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:17:40,285 decorators Менеджер ника2 получил доступ к wrapper
+INFO 2025-10-07 22:17:40,301 decorators Пользователь ника2 (manager): создал проект
+INFO 2025-10-07 22:17:40,303 basehttp "GET /accounts/manager/projects/create/ HTTP/1.1" 200 4975
+INFO 2025-10-07 22:17:54,816 middleware Запрос: {'user': 'ника2', 'path': '/accounts/manager/projects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:17:54,816 decorators Менеджер ника2 получил доступ к manager_projects_list
+INFO 2025-10-07 22:17:54,900 basehttp "GET /accounts/manager/projects/ HTTP/1.1" 200 13858
+INFO 2025-10-07 22:17:59,410 middleware Запрос: {'user': 'ника2', 'path': '/accounts/manager/tasks/create/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:17:59,411 decorators Менеджер ника2 получил доступ к wrapper
+INFO 2025-10-07 22:17:59,423 decorators Пользователь ника2 (manager): создал задачу
+INFO 2025-10-07 22:17:59,424 basehttp "GET /accounts/manager/tasks/create/ HTTP/1.1" 200 5199
+INFO 2025-10-07 22:18:03,626 middleware Запрос: {'user': 'ника2', 'path': '/accounts/manager/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:18:03,627 decorators Менеджер ника2 получил доступ к manager_defects_list
+INFO 2025-10-07 22:18:03,646 basehttp "GET /accounts/manager/defects/ HTTP/1.1" 200 8598
+INFO 2025-10-07 22:18:09,360 middleware Запрос: {'user': 'ника2', 'path': '/accounts/manager/defects/3/assign/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:18:09,361 decorators Менеджер ника2 получил доступ к wrapper
+INFO 2025-10-07 22:18:09,374 decorators Пользователь ника2 (manager): назначил дефект
+INFO 2025-10-07 22:18:09,376 basehttp "GET /accounts/manager/defects/3/assign/ HTTP/1.1" 200 4363
+INFO 2025-10-07 22:18:15,150 middleware Запрос: {'user': 'ника2', 'path': '/accounts/manager/reports/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:18:15,151 decorators Менеджер ника2 получил доступ к manager_reports
+INFO 2025-10-07 22:18:15,172 basehttp "GET /accounts/manager/reports/ HTTP/1.1" 200 6540
+INFO 2025-10-07 22:18:29,196 middleware Запрос: {'user': 'ника2', 'path': '/accounts/logout/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:18:29,209 basehttp "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:18:29,214 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:18:29,219 basehttp "GET /accounts/login/ HTTP/1.1" 200 3560
+INFO 2025-10-07 22:18:33,689 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:18:34,858 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:18:35,513 decorators Пользователь ника3 (viewer): вошел в систему
+INFO 2025-10-07 22:18:35,521 basehttp - Broken pipe from ('127.0.0.1', 51225)
+INFO 2025-10-07 22:18:36,715 decorators Пользователь ника3 (viewer): вошел в систему
+INFO 2025-10-07 22:18:36,722 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:18:36,734 middleware Запрос: {'user': 'ника3', 'path': '/accounts/dashboard/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:18:36,737 basehttp "GET /accounts/dashboard/ HTTP/1.1" 200 4815
+INFO 2025-10-07 22:18:39,155 middleware Запрос: {'user': 'ника3', 'path': '/accounts/viewer/projects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:18:39,156 decorators Руководитель ника3 получил доступ к viewer_projects_overview
+INFO 2025-10-07 22:18:39,172 basehttp "GET /accounts/viewer/projects/ HTTP/1.1" 200 9081
+INFO 2025-10-07 22:18:40,487 middleware Запрос: {'user': 'ника3', 'path': '/accounts/viewer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:18:40,488 decorators Руководитель ника3 получил доступ к viewer_defects_progress
+INFO 2025-10-07 22:18:40,508 basehttp "GET /accounts/viewer/defects/ HTTP/1.1" 200 8064
+INFO 2025-10-07 22:18:41,591 middleware Запрос: {'user': 'ника3', 'path': '/accounts/viewer/analytics/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:18:41,592 decorators Руководитель ника3 получил доступ к viewer_analytics
+INFO 2025-10-07 22:18:41,603 basehttp "GET /accounts/viewer/analytics/ HTTP/1.1" 200 4859
+INFO 2025-10-07 22:29:25,279 middleware Запрос: {'user': 'ника3', 'path': '/accounts/logout/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:25,291 basehttp "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:29:25,296 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:25,300 basehttp "GET /accounts/login/ HTTP/1.1" 200 3560
+INFO 2025-10-07 22:29:28,229 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:29,449 decorators Пользователь ника2 (manager): вошел в систему
+INFO 2025-10-07 22:29:29,455 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:29:29,466 middleware Запрос: {'user': 'ника2', 'path': '/accounts/dashboard/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:29,472 basehttp "GET /accounts/dashboard/ HTTP/1.1" 200 20004
+INFO 2025-10-07 22:29:33,400 middleware Запрос: {'user': 'ника2', 'path': '/accounts/logout/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:33,415 basehttp "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:29:33,421 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:33,424 basehttp "GET /accounts/login/ HTTP/1.1" 200 3560
+INFO 2025-10-07 22:29:35,612 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:36,830 decorators Пользователь ника1 (engineer): вошел в систему
+INFO 2025-10-07 22:29:36,836 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:29:36,843 middleware Запрос: {'user': 'ника1', 'path': '/accounts/dashboard/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:36,851 basehttp "GET /accounts/dashboard/ HTTP/1.1" 200 13279
+INFO 2025-10-07 22:29:39,363 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:39,364 decorators Инженер ника1 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:29:39,381 basehttp "GET /accounts/engineer/defects/ HTTP/1.1" 200 7460
+INFO 2025-10-07 22:29:41,492 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/2/update/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:41,493 decorators Инженер ника1 получил доступ к wrapper
+INFO 2025-10-07 22:29:41,505 decorators Пользователь ника1 (engineer): обновил дефект
+INFO 2025-10-07 22:29:41,506 basehttp "GET /accounts/engineer/defects/2/update/ HTTP/1.1" 200 6589
+INFO 2025-10-07 22:29:43,699 middleware Запрос: {'user': 'ника1', 'path': '/accounts/logout/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:43,708 basehttp "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:29:43,714 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:43,717 basehttp "GET /accounts/login/ HTTP/1.1" 200 3560
+INFO 2025-10-07 22:29:45,866 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/register/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:45,901 basehttp "GET /accounts/register/ HTTP/1.1" 200 5572
+INFO 2025-10-07 22:29:52,262 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/register/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:52,353 basehttp "POST /accounts/register/ HTTP/1.1" 200 6649
+INFO 2025-10-07 22:29:58,696 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/register/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:29:58,706 basehttp "POST /accounts/register/ HTTP/1.1" 200 6370
+INFO 2025-10-07 22:30:08,538 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/register/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:09,191 basehttp "POST /accounts/register/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:30:09,202 middleware Запрос: {'user': 'ника4', 'path': '/accounts/dashboard/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:09,207 basehttp "GET /accounts/dashboard/ HTTP/1.1" 200 8160
+INFO 2025-10-07 22:30:11,845 middleware Запрос: {'user': 'ника4', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:11,846 decorators Инженер ника4 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:30:11,852 basehttp "GET /accounts/engineer/defects/ HTTP/1.1" 200 3571
+INFO 2025-10-07 22:30:29,992 middleware Запрос: {'user': 'ника4', 'path': '/accounts/engineer/stats/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:29,993 decorators Инженер ника4 получил доступ к engineer_my_defects_stats
+INFO 2025-10-07 22:30:30,007 basehttp "GET /accounts/engineer/stats/ HTTP/1.1" 200 5813
+INFO 2025-10-07 22:30:37,747 middleware Запрос: {'user': 'ника4', 'path': '/accounts/logout/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:37,761 basehttp "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:30:37,767 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:37,770 basehttp "GET /accounts/login/ HTTP/1.1" 200 3612
+INFO 2025-10-07 22:30:40,707 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:42,034 decorators Пользователь ника1 (engineer): вошел в систему
+INFO 2025-10-07 22:30:42,045 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:30:42,061 middleware Запрос: {'user': 'ника1', 'path': '/accounts/dashboard/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:42,077 basehttp "GET /accounts/dashboard/ HTTP/1.1" 200 13279
+INFO 2025-10-07 22:30:43,187 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:43,188 decorators Инженер ника1 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:30:43,195 basehttp "GET /accounts/engineer/defects/ HTTP/1.1" 200 7460
+INFO 2025-10-07 22:30:45,772 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:45,773 decorators Инженер ника1 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:30:45,778 basehttp "GET /accounts/engineer/defects/?status=in_progress HTTP/1.1" 200 4582
+INFO 2025-10-07 22:30:47,145 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:47,146 decorators Инженер ника1 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:30:47,154 basehttp "GET /accounts/engineer/defects/?status=new HTTP/1.1" 200 4577
+INFO 2025-10-07 22:30:47,947 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:47,948 decorators Инженер ника1 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:30:47,952 basehttp "GET /accounts/engineer/defects/?status=checking HTTP/1.1" 200 3571
+INFO 2025-10-07 22:30:48,353 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:48,354 decorators Инженер ника1 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:30:48,361 basehttp "GET /accounts/engineer/defects/?status=closed HTTP/1.1" 200 4575
+INFO 2025-10-07 22:30:54,714 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/3/update/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:30:54,715 decorators Инженер ника1 получил доступ к wrapper
+INFO 2025-10-07 22:30:54,727 decorators Пользователь ника1 (engineer): обновил дефект
+INFO 2025-10-07 22:30:54,728 basehttp "GET /accounts/engineer/defects/3/update/ HTTP/1.1" 200 6635
+INFO 2025-10-07 22:31:03,834 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/3/update/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:03,836 decorators Инженер ника1 получил доступ к wrapper
+INFO 2025-10-07 22:31:04,003 decorators Пользователь ника1 (engineer): обновил дефект
+INFO 2025-10-07 22:31:04,005 basehttp "POST /accounts/engineer/defects/3/update/ HTTP/1.1" 200 6641
+INFO 2025-10-07 22:31:05,767 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/3/update/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:05,768 decorators Инженер ника1 получил доступ к wrapper
+INFO 2025-10-07 22:31:05,788 decorators Пользователь ника1 (engineer): обновил дефект
+INFO 2025-10-07 22:31:05,790 basehttp "POST /accounts/engineer/defects/3/update/ HTTP/1.1" 200 6641
+INFO 2025-10-07 22:31:08,867 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/3/update/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:08,868 decorators Инженер ника1 получил доступ к wrapper
+INFO 2025-10-07 22:31:08,878 decorators Пользователь ника1 (engineer): обновил дефект
+INFO 2025-10-07 22:31:08,879 basehttp "GET /accounts/engineer/defects/3/update/ HTTP/1.1" 200 6635
+INFO 2025-10-07 22:31:12,067 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:12,068 decorators Инженер ника1 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:31:12,079 basehttp "GET /accounts/engineer/defects/ HTTP/1.1" 200 7460
+INFO 2025-10-07 22:31:13,725 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:13,725 decorators Инженер ника1 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:31:13,729 basehttp "GET /accounts/engineer/defects/?status=cancelled HTTP/1.1" 200 3571
+INFO 2025-10-07 22:31:14,449 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:14,450 decorators Инженер ника1 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:31:14,454 basehttp "GET /accounts/engineer/defects/?status=checking HTTP/1.1" 200 3571
+INFO 2025-10-07 22:31:14,903 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:14,904 decorators Инженер ника1 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:31:14,910 basehttp "GET /accounts/engineer/defects/?status=closed HTTP/1.1" 200 4575
+INFO 2025-10-07 22:31:16,310 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/stats/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:16,311 decorators Инженер ника1 получил доступ к engineer_my_defects_stats
+INFO 2025-10-07 22:31:16,328 basehttp "GET /accounts/engineer/stats/ HTTP/1.1" 200 5813
+INFO 2025-10-07 22:31:20,982 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:20,983 decorators Инженер ника1 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:31:20,994 basehttp "GET /accounts/engineer/defects/ HTTP/1.1" 200 7460
+INFO 2025-10-07 22:31:21,230 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/create/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:21,231 decorators Инженер ника1 получил доступ к wrapper
+INFO 2025-10-07 22:31:21,241 decorators Пользователь ника1 (engineer): создал дефект
+INFO 2025-10-07 22:31:21,242 basehttp "GET /accounts/engineer/defects/create/ HTTP/1.1" 200 6292
+INFO 2025-10-07 22:31:23,106 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:23,107 decorators Инженер ника1 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:31:23,120 basehttp "GET /accounts/engineer/defects/ HTTP/1.1" 200 7460
+INFO 2025-10-07 22:31:31,249 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/1/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:31,250 decorators Инженер ника1 получил доступ к engineer_defect_detail
+INFO 2025-10-07 22:31:31,273 basehttp "GET /accounts/engineer/defects/1/ HTTP/1.1" 200 10565
+INFO 2025-10-07 22:31:34,466 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/1/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:34,467 decorators Инженер ника1 получил доступ к engineer_defect_detail
+INFO 2025-10-07 22:31:34,481 basehttp "POST /accounts/engineer/defects/1/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:31:34,493 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/1/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:34,494 decorators Инженер ника1 получил доступ к engineer_defect_detail
+INFO 2025-10-07 22:31:34,511 basehttp "GET /accounts/engineer/defects/1/ HTTP/1.1" 200 10587
+INFO 2025-10-07 22:31:35,347 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/1/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:35,348 decorators Инженер ника1 получил доступ к engineer_defect_detail
+INFO 2025-10-07 22:31:35,363 basehttp "GET /accounts/engineer/defects/1/ HTTP/1.1" 200 10123
+INFO 2025-10-07 22:31:36,121 middleware Запрос: {'user': 'ника1', 'path': '/accounts/dashboard/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:36,137 basehttp "GET /accounts/dashboard/ HTTP/1.1" 200 13283
+INFO 2025-10-07 22:31:56,444 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/stats/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:31:56,445 decorators Инженер ника1 получил доступ к engineer_my_defects_stats
+INFO 2025-10-07 22:31:56,461 basehttp "GET /accounts/engineer/stats/ HTTP/1.1" 200 5813
+INFO 2025-10-07 22:44:06,475 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/stats/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:44:06,476 decorators Инженер ника1 получил доступ к engineer_my_defects_stats
+INFO 2025-10-07 22:44:06,490 basehttp "GET /accounts/engineer/stats/ HTTP/1.1" 200 5813
+INFO 2025-10-07 22:44:10,102 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/defects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:44:10,103 decorators Инженер ника1 получил доступ к engineer_defects_list
+INFO 2025-10-07 22:44:10,110 basehttp "GET /accounts/engineer/defects/ HTTP/1.1" 200 7464
+INFO 2025-10-07 22:44:11,887 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/stats/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:44:11,887 decorators Инженер ника1 получил доступ к engineer_my_defects_stats
+INFO 2025-10-07 22:44:11,897 basehttp "GET /accounts/engineer/stats/ HTTP/1.1" 200 5813
+INFO 2025-10-07 22:44:28,628 middleware Запрос: {'user': 'ника1', 'path': '/accounts/engineer/stats/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:44:28,629 decorators Инженер ника1 получил доступ к engineer_my_defects_stats
+INFO 2025-10-07 22:44:28,638 basehttp "GET /accounts/engineer/stats/ HTTP/1.1" 200 5806
+INFO 2025-10-07 22:44:29,786 middleware Запрос: {'user': 'ника1', 'path': '/accounts/logout/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:44:29,795 basehttp "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:44:29,801 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:44:29,810 basehttp "GET /accounts/login/ HTTP/1.1" 200 3231
+INFO 2025-10-07 22:44:33,079 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:44:33,911 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:44:34,304 decorators Пользователь ника2 (manager): вошел в систему
+INFO 2025-10-07 22:44:34,309 basehttp - Broken pipe from ('127.0.0.1', 51376)
+INFO 2025-10-07 22:44:35,053 decorators Пользователь ника2 (manager): вошел в систему
+INFO 2025-10-07 22:44:35,062 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:44:35,076 middleware Запрос: {'user': 'ника2', 'path': '/accounts/dashboard/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:44:35,087 basehttp "GET /accounts/dashboard/ HTTP/1.1" 200 20004
+INFO 2025-10-07 22:44:39,646 middleware Запрос: {'user': 'ника2', 'path': '/accounts/manager/reports/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:44:39,647 decorators Менеджер ника2 получил доступ к manager_reports
+INFO 2025-10-07 22:44:39,668 basehttp "GET /accounts/manager/reports/ HTTP/1.1" 200 6539
+INFO 2025-10-07 22:45:02,343 middleware Запрос: {'user': 'ника2', 'path': '/accounts/logout/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:45:02,358 basehttp "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:45:02,368 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:45:02,375 basehttp "GET /accounts/login/ HTTP/1.1" 200 3560
+INFO 2025-10-07 22:45:04,511 middleware Запрос: {'user': 'anonymous', 'path': '/accounts/login/', 'method': 'POST', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:45:05,924 decorators Пользователь ника3 (viewer): вошел в систему
+INFO 2025-10-07 22:45:05,929 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-07 22:45:05,936 middleware Запрос: {'user': 'ника3', 'path': '/accounts/dashboard/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:45:05,938 basehttp "GET /accounts/dashboard/ HTTP/1.1" 200 4815
+INFO 2025-10-07 22:45:19,372 middleware Запрос: {'user': 'ника3', 'path': '/accounts/viewer/projects/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:45:19,373 decorators Руководитель ника3 получил доступ к viewer_projects_overview
+INFO 2025-10-07 22:45:19,385 basehttp "GET /accounts/viewer/projects/ HTTP/1.1" 200 9077
+INFO 2025-10-07 22:45:45,194 middleware Запрос: {'user': 'ника3', 'path': '/accounts/viewer/analytics/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:45:45,195 decorators Руководитель ника3 получил доступ к viewer_analytics
+INFO 2025-10-07 22:45:45,204 basehttp "GET /accounts/viewer/analytics/ HTTP/1.1" 200 4861
+INFO 2025-10-07 22:45:52,378 middleware Запрос: {'user': 'ника3', 'path': '/accounts/viewer/analytics/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:45:52,379 decorators Руководитель ника3 получил доступ к viewer_analytics
+INFO 2025-10-07 22:45:52,387 basehttp "GET /accounts/viewer/analytics/ HTTP/1.1" 200 4861
+INFO 2025-10-07 22:45:56,155 middleware Запрос: {'user': 'ника3', 'path': '/accounts/viewer/analytics/', 'method': 'GET', 'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36'}
+INFO 2025-10-07 22:45:56,156 decorators Руководитель ника3 получил доступ к viewer_analytics
+INFO 2025-10-07 22:45:56,162 basehttp "GET /accounts/viewer/analytics/ HTTP/1.1" 200 4861
