@@ -1,0 +1,97 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Мои дефекты - Панель инженера{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} (Инженер)</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Мои дефекты</h1>
+        <div>
+            <a href="{% url 'accounts:engineer_defect_create' %}" class="btn btn-success me-2">
+                 Создать дефект
+            </a>
+            <a href="{% url 'accounts:engineer_stats' %}" class="btn btn-info">
+                 Статистика
+            </a>
+        </div>
+    </div>
+
+    <!-- Фильтры -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Фильтры</h5>
+            <div class="btn-group">
+                <a href="{% url 'accounts:engineer_defects_list' %}" class="btn btn-outline-primary {% if not current_status %}active{% endif %}">
+                    Все
+                </a>
+                {% for status_code, status_name in status_choices %}
+                <a href="{% url 'accounts:engineer_defects_list' %}?status={{ status_code }}" 
+                   class="btn btn-outline-primary {% if current_status == status_code %}active{% endif %}">
+                    {{ status_name }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Список дефектов -->
+    <div class="row">
+        {% for defect in defects %}
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h5 class="card-title">{{ defect.title }}</h5>
+                        <span class="badge bg-{% if defect.priority == 'critical' %}danger{% elif defect.priority == 'high' %}warning{% else %}info{% endif %}">
+                            {{ defect.get_priority_display }}
+                        </span>
+                    </div>
+                    <p class="card-text text-muted">{{ defect.description|truncatewords:20 }}</p>
+                    
+                    <div class="mb-2">
+                        <strong>Проект:</strong> {{ defect.project.name }}<br>
+                        <strong>Статус:</strong> 
+                        <span class="badge bg-{% if defect.status == 'new' %}primary{% elif defect.status == 'in_progress' %}warning{% elif defect.status == 'closed' %}success{% else %}secondary{% endif %}">
+                            {{ defect.get_status_display }}
+                        </span><br>
+                        <strong>Срок:</strong> {{ defect.deadline }} 
+                        {% if defect.is_overdue %}
+                        <span class="badge bg-danger">Просрочено</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'accounts:engineer_defect_detail' defect.id %}" class="btn btn-primary btn-sm">
+                             Подробнее
+                        </a>
+                        <a href="{% url 'accounts:engineer_defect_update' defect.id %}" class="btn btn-outline-secondary btn-sm">
+                             Редактировать
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <h4>Нет дефектов</h4>
+                <p>У вас пока нет назначенных дефектов.</p>
+                <a href="{% url 'accounts:engineer_defect_create' %}" class="btn btn-primary">
+                    Создать первый дефект
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Статистика - Панель инженера{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} (Инженер)</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1> Моя статистика</h1>
+        <a href="{% url 'accounts:engineer_defects_list' %}" class="btn btn-secondary">← Назад к дефектам</a>
+    </div>
+
+    <div class="row">
+        <!-- Общая статистика -->
+        <div class="col-md-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body text-center">
+                    <h2>{{ total_defects }}</h2>
+                    <p>Всего дефектов</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card text-white bg-warning">
+                <div class="card-body text-center">
+                    <h2>{{ overdue_defects.count }}</h2>
+                    <p>Просроченных</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card text-white bg-success">
+                <div class="card-body text-center">
+                    <h2>{{ status_stats.Закрыта }}</h2>
+                    <p>Завершено</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Статистика по статусам -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"> Статистика по статусам</h5>
+                </div>
+                <div class="card-body">
+                    {% for status_name, count in status_stats.items %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>{{ status_name }}</span>
+                        <span class="badge bg-primary">{{ count }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Статистика по приоритетам -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"> Статистика по приоритетам</h5>
+                </div>
+                <div class="card-body">
+                    {% for priority_name, count in priority_stats.items %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>{{ priority_name }}</span>
+                        <span class="badge bg-{% if priority_name == 'Критический' %}danger{% elif priority_name == 'Высокий' %}warning{% else %}info{% endif %}">
+                            {{ count }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Просроченные дефекты -->
+    {% if overdue_defects %}
+    <div class="card mt-4">
+        <div class="card-header bg-danger text-white">
+            <h5 class="mb-0"> Просроченные дефекты</h5>
+        </div>
+        <div class="card-body">
+            {% for defect in overdue_defects %}
+            <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                <div>
+                    <strong>{{ defect.title }}</strong>
+                    <br>
+                    <small class="text-muted">Срок: {{ defect.deadline }}</small>
+                </div>
+                <a href="{% url 'accounts:engineer_defect_detail' defect.id %}" class="btn btn-sm btn-outline-primary">
+                    Перейти
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

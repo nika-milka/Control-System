@@ -1,0 +1,62 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Назначение дефекта - Панель менеджера{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} (Менеджер)</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0"> Назначение дефекта</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <strong>Дефект:</strong> {{ defect.title }}<br>
+                        <strong>Проект:</strong> {{ defect.project.name }}<br>
+                        <strong>Текущий исполнитель:</strong> {{ defect.assigned_to.username }}
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">
+                                {{ field.label }}
+                                {% if field.field.required %}<span class="text-danger">*</span>{% endif %}
+                            </label>
+                            {{ field }}
+                            {% if field.errors %}
+                            <div class="text-danger small mt-1">
+                                {% for error in field.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-warning">
+                                 Назначить дефект
+                            </button>
+                            <a href="{% url 'accounts:manager_defects_list' %}" class="btn btn-secondary">Отмена</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

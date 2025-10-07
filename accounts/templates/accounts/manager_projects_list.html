@@ -1,0 +1,217 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Проекты - Панель менеджера{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} (Менеджер)</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1> Управление проектами</h1>
+        <a href="{% url 'accounts:manager_project_create' %}" class="btn btn-success"> Создать проект</a>
+    </div>
+
+    <!-- Общая статистика -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body text-center">
+                    <h3>{{ projects_with_stats|length }}</h3>
+                    <p>Всего проектов</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body text-center">
+                    <h3>{{ total_defects_count }}</h3>
+                    <p>Всего дефектов</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info">
+                <div class="card-body text-center">
+                    <h3>{{ active_defects_count }}</h3>
+                    <p>Активных дефектов</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-body text-center">
+                    <h3>{{ completed_defects_count }}</h3>
+                    <p>Завершено дефектов</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Список проектов -->
+    <div class="row">
+        {% for project_stats in projects_with_stats %}
+        {% with project=project_stats.project %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">{{ project.name }}</h5>
+                    <span class="badge bg-primary">Проект</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        {% if project.description %}
+                            {{ project.description|truncatewords:20 }}
+                        {% else %}
+                            <span class="text-muted">Описание отсутствует</span>
+                        {% endif %}
+                    </p>
+                    
+                    <div class="mb-3">
+                        <small class="text-muted">
+                            <strong>Период:</strong> {{ project.start_date }} - {{ project.end_date }}<br>
+                            <strong>Менеджер:</strong> {{ project.manager.username }}<br>
+                            <strong>Создан:</strong> {{ project.created_at|date:"d.m.Y" }}
+                        </small>
+                    </div>
+                    
+                    <!-- Статистика проекта -->
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="text-primary">
+                                <h5>{{ project_stats.total_defects }}</h5>
+                                <small>Дефектов</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="text-warning">
+                                <h5>{{ project_stats.open_defects }}</h5>
+                                <small>Активных</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="text-success">
+                                <h5>{{ project_stats.closed_defects }}</h5>
+                                <small>Завершено</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Прогресс-бар -->
+                    {% if project_stats.total_defects > 0 %}
+                    <div class="mt-3">
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar bg-success" 
+                                 style="width: {% widthratio project_stats.closed_defects project_stats.total_defects 100 %}%">
+                            </div>
+                        </div>
+                        <small class="text-muted">
+                            Выполнено: {% widthratio project_stats.closed_defects project_stats.total_defects 100 %}%
+                        </small>
+                    </div>
+                    {% else %}
+                    <div class="mt-3">
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar bg-secondary" style="width: 0%"></div>
+                        </div>
+                        <small class="text-muted">Дефектов пока нет</small>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'accounts:manager_project_detail' project.id %}" class="btn btn-primary btn-sm flex-fill">
+                             Детали
+                        </a>
+                        <a href="{% url 'accounts:manager_defects_list' %}?project={{ project.id }}" class="btn btn-outline-secondary btn-sm flex-fill">
+                             Дефекты
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endwith %}
+        {% empty %}
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <div class="mb-4">
+                        <h1 class="text-muted"></h1>
+                    </div>
+                    <h5 class="text-muted">Проекты не найдены</h5>
+                    <p class="text-muted">Создайте первый проект для начала работы</p>
+                    <a href="{% url 'accounts:manager_project_create' %}" class="btn btn-success btn-lg mt-3">
+                         Создать первый проект
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Быстрые действия -->
+    {% if projects_with_stats %}
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"> Быстрые действия</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-2">
+                            <a href="{% url 'accounts:manager_project_create' %}" class="btn btn-outline-dark w-100">
+                                 Новый проект
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <a href="{% url 'accounts:manager_task_create' %}" class="btn btn-outline-primary w-100">
+                                 Новая задача
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <a href="{% url 'accounts:manager_defects_list' %}" class="btn btn-outline-warning w-100">
+                                 Все дефекты
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <a href="{% url 'accounts:manager_reports' %}" class="btn btn-outline-info w-100">
+                                 Отчеты
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.card {
+    transition: transform 0.2s;
+    border: 1px solid #e3e6f0;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.progress {
+    background-color: #eaecf4;
+}
+.btn {
+    transition: all 0.2s;
+}
+.text-primary { color: #4e73df !important; }
+.text-warning { color: #f6c23e !important; }
+.text-success { color: #1cc88a !important; }
+.text-info { color: #36b9cc !important; }
+</style>
+{% endblock %}

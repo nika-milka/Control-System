@@ -1,0 +1,280 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Панель менеджера - Система контроля{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} ({{ role_display }})</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">Панель менеджера</h1>
+                    <p class="card-text">Добро пожаловать, <strong>{{ user.username }}</strong>!</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-3 mb-4">
+                            <div class="card text-white bg-dark h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title"> Управление проектами</h5>
+                                    <p class="card-text">Создание и управление строительными проектами</p>
+                                    <a href="{% url 'accounts:manager_projects_list' %}" class="btn btn-light">Управлять</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card text-white bg-primary h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title"> Назначение задач</h5>
+                                    <p class="card-text">Распределение задач между инженерами</p>
+                                    <a href="{% url 'accounts:manager_task_create' %}" class="btn btn-light">Создать задачу</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card text-white bg-warning h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title"> Контроль сроков</h5>
+                                    <p class="card-text">Мониторинг выполнения задач по срокам</p>
+                                    <a href="{% url 'accounts:manager_defects_list' %}" class="btn btn-light">Контролировать</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card text-white bg-info h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title"> Формирование отчетов</h5>
+                                    <p class="card-text">Создание отчетов для руководства</p>
+                                    <a href="{% url 'accounts:manager_reports' %}" class="btn btn-light">Сформировать</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Быстрый доступ -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0"> Быстрый доступ</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2 mb-2">
+                                            <a href="{% url 'accounts:manager_project_create' %}" class="btn btn-outline-dark w-100">
+                                                 Новый проект
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <a href="{% url 'accounts:manager_task_create' %}" class="btn btn-outline-primary w-100">
+                                                 Новая задача
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <a href="{% url 'accounts:manager_tasks_list' %}" class="btn btn-outline-success w-100">
+                                                 Все задачи
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <a href="{% url 'accounts:manager_defects_list' %}" class="btn btn-outline-warning w-100">
+                                                 Дефекты
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <a href="{% url 'accounts:manager_projects_list' %}" class="btn btn-outline-secondary w-100">
+                                                 Проекты
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <a href="{% url 'accounts:manager_reports' %}" class="btn btn-outline-info w-100">
+                                                 Отчеты
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Статистика -->
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5> Быстрая статистика</h5>
+                                    <div class="row mt-3">
+                                        <div class="col-6">
+                                            <div class="text-primary">
+                                                <h4>{{ user.managed_projects.count }}</h4>
+                                                <small>Проектов</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="text-warning">
+                                                <h4>{{ user.created_tasks.count }}</h4>
+                                                <small>Задач создано</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5> Последние действия</h5>
+                                    <div class="mt-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                                            <div>
+                                                <strong>Создание проекта</strong>
+                                                <br>
+                                                <small class="text-muted">Новый строительный объект добавлен</small>
+                                            </div>
+                                            <span class="badge bg-success">Сегодня</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                                            <div>
+                                                <strong>Назначение задачи</strong>
+                                                <br>
+                                                <small class="text-muted">Задача передана инженеру</small>
+                                            </div>
+                                            <span class="badge bg-info">Вчера</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center p-2 border rounded">
+                                            <div>
+                                                <strong>Формирование отчета</strong>
+                                                <br>
+                                                <small class="text-muted">Еженедельный отчет готов</small>
+                                            </div>
+                                            <span class="badge bg-secondary">2 дня назад</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Мои проекты -->
+                    {% if user.managed_projects.all %}
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0"> Мои проекты</h5>
+                                    <a href="{% url 'accounts:manager_projects_list' %}" class="btn btn-sm btn-outline-primary">
+                                        Все проекты
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        {% for project in user.managed_projects.all|slice:":3" %}
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card h-100">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">{{ project.name }}</h6>
+                                                    <p class="card-text small text-muted">
+                                                        {{ project.description|truncatewords:10 }}
+                                                    </p>
+                                                    <div class="mb-2">
+                                                        <small>
+                                                            <strong>Период:</strong><br>
+                                                            {{ project.start_date }} - {{ project.end_date }}
+                                                        </small>
+                                                    </div>
+                                                    <div class="progress mb-2" style="height: 10px;">
+                                                        <div class="progress-bar bg-success" style="width: 65%"></div>
+                                                    </div>
+                                                    <small class="text-muted">65% выполнено</small>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <a href="{% url 'accounts:manager_project_detail' project.id %}" class="btn btn-sm btn-outline-primary w-100">
+                                                        Детали
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="text-muted"> У вас пока нет проектов</h5>
+                                    <p class="text-muted">Создайте первый проект для начала работы</p>
+                                    <a href="{% url 'accounts:manager_project_create' %}" class="btn btn-success btn-lg">
+                                         Создать первый проект
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Срочные задачи -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning text-dark">
+                                    <h5 class="mb-0"> Срочные задачи</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="alert alert-warning">
+                                                <h6> Критические дефекты</h6>
+                                                <p class="mb-1">Требуют немедленного внимания</p>
+                                                <a href="{% url 'accounts:manager_defects_list' %}?priority=critical" class="btn btn-sm btn-outline-danger">
+                                                    Проверить
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="alert alert-info">
+                                                <h6> Просроченные задачи</h6>
+                                                <p class="mb-1">Задачи с истекшим сроком</p>
+                                                <a href="{% url 'accounts:manager_tasks_list' %}" class="btn btn-sm btn-outline-primary">
+                                                    Просмотреть
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    transition: transform 0.2s;
+}
+.card:hover {
+    transform: translateY(-2px);
+}
+.btn {
+    transition: all 0.2s;
+}
+.progress {
+    background-color: #e9ecef;
+}
+</style>
+{% endblock %}

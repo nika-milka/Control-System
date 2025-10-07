@@ -1,0 +1,246 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Дефект: {{ defect.title }}{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} (Инженер)</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Дефект: {{ defect.title }}</h1>
+        <a href="{% url 'accounts:engineer_defects_list' %}" class="btn btn-secondary">← Назад к списку</a>
+    </div>
+
+    <div class="row">
+        <!-- Основная информация -->
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"> Информация о дефекте</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Проект:</strong> {{ defect.project.name }}</p>
+                            <p><strong>Статус:</strong> 
+                                <span class="badge bg-{{ defect.get_status_badge_color }}">
+                                    {{ defect.get_status_display }}
+                                </span>
+                            </p>
+                            <p><strong>Приоритет:</strong> 
+                                <span class="badge bg-{{ defect.get_priority_badge_color }}">
+                                    {{ defect.get_priority_display }}
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Исполнитель:</strong> {{ defect.assigned_to.username }}</p>
+                            <p><strong>Создатель:</strong> {{ defect.created_by.username }}</p>
+                            <p><strong>Срок:</strong> {{ defect.deadline }}
+                                {% if defect.is_overdue %}
+                                <span class="badge bg-danger">Просрочено</span>
+                                {% endif %}
+                            </p>
+                            <p><strong>Создан:</strong> {{ defect.created_at|date:"d.m.Y H:i" }}</p>
+                        </div>
+                    </div>
+                    <p><strong>Описание:</strong></p>
+                    <div class="border rounded p-3 bg-light">
+                        {{ defect.description|linebreaks }}
+                    </div>
+                    
+                    <!-- Форма изменения статуса -->
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        <div class="row align-items-end">
+                            <div class="col-md-6">
+                                <label class="form-label"><strong>Изменить статус:</strong></label>
+                                <select name="status" class="form-select">
+                                    {% for status_code, status_name in defect.STATUS_CHOICES %}
+                                    <option value="{{ status_code }}" {% if defect.status == status_code %}selected{% endif %}>
+                                        {{ status_name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" name="update_status" class="btn btn-primary w-100">
+                                     Обновить статус
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Комментарии -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"> Комментарии</h5>
+                </div>
+                <div class="card-body">
+                    {% for comment in comments %}
+                    <div class="border-bottom pb-3 mb-3">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <strong>{{ comment.author.username }}</strong>
+                                <span class="badge bg-secondary">{{ comment.author.get_role_display }}</span>
+                            </div>
+                            <small class="text-muted">{{ comment.created_at|date:"d.m.Y H:i" }}</small>
+                        </div>
+                        <p class="mb-0">{{ comment.text|linebreaks }}</p>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted text-center py-3">Комментариев пока нет</p>
+                    {% endfor %}
+
+                    <!-- Форма добавления комментария -->
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Добавить комментарий:</strong></label>
+                            {{ comment_form.text }}
+                        </div>
+                        <button type="submit" name="add_comment" class="btn btn-primary">
+                             Добавить комментарий
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Боковая панель -->
+        <div class="col-md-4">
+            <!-- Действия -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"> Действия</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'accounts:engineer_defect_update' defect.id %}" class="btn btn-warning">
+                             Редактировать дефект
+                        </a>
+                        <a href="{% url 'accounts:engineer_defects_list' %}" class="btn btn-outline-secondary">
+                             К списку дефектов
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Информация о проекте -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"> Информация о проекте</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Название:</strong> {{ defect.project.name }}</p>
+                    <p><strong>Описание:</strong> 
+                        {{ defect.project.description|truncatewords:15 }}
+                    </p>
+                    <p><strong>Период:</strong><br>
+                        {{ defect.project.start_date }} - {{ defect.project.end_date }}
+                    </p>
+                    <p><strong>Менеджер:</strong> {{ defect.project.manager.username }}</p>
+                </div>
+            </div>
+
+            <!-- Вложения -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"> Вложения</h5>
+                </div>
+                <div class="card-body">
+                    {% for attachment in attachments %}
+                    <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+                        <div>
+                            <strong>{{ attachment.file.name|cut:"defect_attachments/" }}</strong>
+                            <br>
+                            <small class="text-muted">
+                                Загрузил: {{ attachment.uploaded_by.username }}<br>
+                                {{ attachment.uploaded_at|date:"d.m.Y H:i" }}
+                            </small>
+                        </div>
+                        <a href="{{ attachment.file.url }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                            
+                        </a>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted text-center">Вложений нет</p>
+                    {% endfor %}
+
+                    <!-- Форма загрузки вложения -->
+                    <form method="post" enctype="multipart/form-data" class="mt-3">
+                        {% csrf_token %}
+                        <div class="mb-2">
+                            <label class="form-label"><strong>Добавить вложение:</strong></label>
+                            {{ attachment_form.file }}
+                        </div>
+                        <button type="submit" name="add_attachment" class="btn btn-outline-primary w-100">
+                             Загрузить файл
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Сообщения -->
+{% if messages %}
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1050">
+    {% for message in messages %}
+    <div class="toast show" role="alert">
+        <div class="toast-header">
+            <strong class="me-auto">Уведомление</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            {{ message }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<style>
+.card {
+    transition: transform 0.2s;
+    border: 1px solid #e3e6f0;
+}
+.card:hover {
+    transform: translateY(-2px);
+}
+.btn {
+    transition: all 0.2s;
+}
+.badge {
+    font-size: 0.75em;
+}
+.toast {
+    background-color: white;
+    border: 1px solid #dee2e6;
+}
+</style>
+
+<script>
+// Автоматическое скрытие toast сообщений
+document.addEventListener('DOMContentLoaded', function() {
+    var toasts = document.querySelectorAll('.toast');
+    toasts.forEach(function(toast) {
+        setTimeout(function() {
+            var bsToast = new bootstrap.Toast(toast);
+            bsToast.hide();
+        }, 5000);
+    });
+});
+</script>
+{% endblock %}

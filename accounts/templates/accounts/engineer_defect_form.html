@@ -1,0 +1,80 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}{% if defect %}Редактирование дефекта{% else %}Создание дефекта{% endif %}{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} (Инженер)</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        {% if defect %}
+                             Редактирование дефекта
+                        {% else %}
+                             Создание нового дефекта
+                        {% endif %}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    {% if defect %}
+                    <div class="alert alert-info">
+                        <strong>Текущий дефект:</strong> {{ defect.title }}<br>
+                        <strong>Проект:</strong> {{ defect.project.name }}<br>
+                        <strong>Статус:</strong> {{ defect.get_status_display }}
+                    </div>
+                    {% endif %}
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">
+                                {{ field.label }}
+                                {% if field.field.required %}<span class="text-danger">*</span>{% endif %}
+                            </label>
+                            {{ field }}
+                            {% if field.errors %}
+                            <div class="text-danger small mt-1">
+                                {% for error in field.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% if field.help_text %}
+                            <div class="form-text">{{ field.help_text }}</div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-success flex-fill">
+                                {% if defect %}
+                                     Сохранить изменения
+                                {% else %}
+                                     Создать дефект
+                                {% endif %}
+                            </button>
+                            <a href="{% if defect %}{% url 'accounts:engineer_defect_detail' defect.id %}{% else %}{% url 'accounts:engineer_defects_list' %}{% endif %}" 
+                               class="btn btn-secondary flex-fill">
+                                Отмена
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Отчеты - Панель менеджера{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} (Менеджер)</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h1 class="mb-4"> Отчетность</h1>
+
+    <!-- Общая статистика -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body text-center">
+                    <h2>{{ total_defects }}</h2>
+                    <p>Всего дефектов</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning">
+                <div class="card-body text-center">
+                    <h2>{{ open_defects }}</h2>
+                    <p>Открытых дефектов</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success">
+                <div class="card-body text-center">
+                    <h2>{{ closed_defects }}</h2>
+                    <p>Закрытых дефектов</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Статистика по проектам -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0"> Статистика по проектам</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Проект</th>
+                            <th>Всего дефектов</th>
+                            <th>Открыто</th>
+                            <th>Закрыто</th>
+                            <th>Процент выполнения</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in projects_stats %}
+                        <tr>
+                            <td><strong>{{ stat.project.name }}</strong></td>
+                            <td>{{ stat.total }}</td>
+                            <td>
+                                <span class="badge bg-warning">{{ stat.open }}</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-success">{{ stat.closed }}</span>
+                            </td>
+                            <td>
+                                {% widthratio stat.closed stat.total 100 %}%
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">
+                                Нет данных по проектам
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Действия с отчетами -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0"> Действия с отчетами</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5> Экспорт в Excel</h5>
+                            <p>Выгрузка данных по дефектам</p>
+                            <button class="btn btn-outline-success">Экспортировать</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5> Графики</h5>
+                            <p>Визуализация статистики</p>
+                            <button class="btn btn-outline-info">Показать графики</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5> Детальный отчет</h5>
+                            <p>Полная информация по проектам</p>
+                            <button class="btn btn-outline-primary">Сформировать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

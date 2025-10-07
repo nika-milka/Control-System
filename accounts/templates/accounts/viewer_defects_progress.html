@@ -1,0 +1,113 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Прогресс дефектов - Панель руководителя{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} (Руководитель)</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h1 class="mb-4"> Прогресс по дефектам</h1>
+
+    <!-- Статистика -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body text-center">
+                    <h2>{{ total_defects }}</h2>
+                    <p>Всего дефектов</p>
+                </div>
+            </div>
+        </div>
+        {% for status_name, count in status_stats.items %}
+        <div class="col-md-3">
+            <div class="card text-white bg-{% if status_name == 'Новая' %}info{% elif status_name == 'В работе' %}warning{% elif status_name == 'Закрыта' %}success{% else %}secondary{% endif %}">
+                <div class="card-body text-center">
+                    <h2>{{ count }}</h2>
+                    <p>{{ status_name }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Фильтры -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Фильтры</h5>
+            <div class="btn-group">
+                <a href="{% url 'accounts:viewer_defects' %}" class="btn btn-outline-primary {% if not current_status %}active{% endif %}">
+                    Все
+                </a>
+                {% for status_code, status_name in status_choices %}
+                <a href="{% url 'accounts:viewer_defects' %}?status={{ status_code }}" 
+                   class="btn btn-outline-primary {% if current_status == status_code %}active{% endif %}">
+                    {{ status_name }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Последние дефекты -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0"> Последние дефекты</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Дефект</th>
+                            <th>Проект</th>
+                            <th>Исполнитель</th>
+                            <th>Статус</th>
+                            <th>Приоритет</th>
+                            <th>Срок</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for defect in defects %}
+                        <tr>
+                            <td>
+                                <strong>{{ defect.title }}</strong>
+                                <br>
+                                <small class="text-muted">{{ defect.description|truncatewords:8 }}</small>
+                            </td>
+                            <td>{{ defect.project.name }}</td>
+                            <td>{{ defect.assigned_to.username }}</td>
+                            <td>
+                                <span class="badge bg-{{ defect.get_status_badge_color }}">
+                                    {{ defect.get_status_display }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge bg-{{ defect.get_priority_badge_color }}">
+                                    {{ defect.get_priority_display }}
+                                </span>
+                            </td>
+                            <td>{{ defect.deadline }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted">
+                                <h5>Дефекты не найдены</h5>
+                                <p>Дефекты появятся когда инженеры начнут работу</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

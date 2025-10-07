@@ -1,0 +1,109 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Проекты - Панель руководителя{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} (Руководитель)</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h1 class="mb-4"> Обзор проектов</h1>
+
+    <!-- Статистика -->
+    <div class="row mb-4">
+        {% for project_stat in projects_with_stats %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ project_stat.project.name }}</h5>
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="text-primary">
+                                <h4>{{ project_stat.total_defects }}</h4>
+                                <small>Всего</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="text-warning">
+                                <h4>{{ project_stat.open_defects }}</h4>
+                                <small>Открыто</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="text-success">
+                                <h4>{{ project_stat.completion_rate|floatformat:0 }}%</h4>
+                                <small>Выполнено</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-success" style="width: {{ project_stat.completion_rate }}%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <h5>Проекты не найдены</h5>
+                <p>Проекты появятся когда менеджеры их создадут</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Детали по проектам -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0"> Детальная информация по проектам</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Проект</th>
+                            <th>Дата начала</th>
+                            <th>Дата окончания</th>
+                            <th>Всего дефектов</th>
+                            <th>Открыто</th>
+                            <th>Выполнено</th>
+                            <th>Прогресс</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for project_stat in projects_with_stats %}
+                        <tr>
+                            <td><strong>{{ project_stat.project.name }}</strong></td>
+                            <td>{{ project_stat.project.start_date }}</td>
+                            <td>{{ project_stat.project.end_date }}</td>
+                            <td>{{ project_stat.total_defects }}</td>
+                            <td>
+                                <span class="badge bg-warning">{{ project_stat.open_defects }}</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-success">{{ project_stat.closed_defects }}</span>
+                            </td>
+                            <td>
+                                <div class="progress" style="height: 20px;">
+                                    <div class="progress-bar bg-success" style="width: {{ project_stat.completion_rate }}%">
+                                        {{ project_stat.completion_rate|floatformat:0 }}%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

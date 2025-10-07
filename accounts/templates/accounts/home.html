@@ -1,0 +1,29 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Главная - Система контроля{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h1 class="fw-bold mb-4"> Система контроля строительных объектов</h1>
+                <p class="lead mb-5">Централизованное управление дефектами на строительных объектах</p>
+                
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <a href="{% url 'accounts:login' %}" class="btn btn-primary btn-lg w-100 py-3 mb-3">
+                            Войти в систему
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{% url 'accounts:register' %}" class="btn btn-outline-primary btn-lg w-100 py-3 mb-3">
+                            Зарегистрироваться
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

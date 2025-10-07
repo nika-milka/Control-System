@@ -1,0 +1,90 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Задачи - Панель менеджера{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} (Менеджер)</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1> Управление задачами</h1>
+        <a href="{% url 'accounts:manager_task_create' %}" class="btn btn-success"> Создать задачу</a>
+    </div>
+
+    <!-- Фильтры -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Фильтры</h5>
+            <div class="btn-group">
+                <a href="{% url 'accounts:manager_tasks_list' %}" class="btn btn-outline-primary {% if not current_status %}active{% endif %}">
+                    Все
+                </a>
+                {% for status_code, status_name in status_choices %}
+                <a href="{% url 'accounts:manager_tasks_list' %}?status={{ status_code }}" 
+                   class="btn btn-outline-primary {% if current_status == status_code %}active{% endif %}">
+                    {{ status_name }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Список задач -->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Задача</th>
+                            <th>Проект</th>
+                            <th>Исполнитель</th>
+                            <th>Статус</th>
+                            <th>Срок</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in tasks %}
+                        <tr>
+                            <td>
+                                <strong>{{ task.title }}</strong>
+                                <br>
+                                <small class="text-muted">{{ task.description|truncatewords:10 }}</small>
+                            </td>
+                            <td>{{ task.project.name }}</td>
+                            <td>{{ task.assigned_to.username }}</td>
+                            <td>
+                                <span class="badge bg-{{ task.get_status_badge_color }}">
+                                    {{ task.get_status_display }}
+                                </span>
+                            </td>
+                            <td>{{ task.deadline }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary">Редактировать</button>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted">
+                                <h5>Задачи не найдены</h5>
+                                <p>Создайте первую задачу для инженеров</p>
+                                <a href="{% url 'accounts:manager_task_create' %}" class="btn btn-success">Создать задачу</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

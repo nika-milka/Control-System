@@ -1,0 +1,79 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Панель руководителя - Система контроля{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} ({{ role_display }})</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">Панель руководителя/заказчика</h1>
+                    <p class="card-text">Добро пожаловать, <strong>{{ user.username }}</strong>!</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-4">
+                            <div class="card text-white bg-info h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title"> Просмотр прогресса</h5>
+                                    <p class="card-text">Мониторинг хода выполнения работ по проектам</p>
+                                    <a href="{% url 'accounts:viewer_projects' %}" class="btn btn-light">Смотреть прогресс</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card text-white bg-secondary h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title"> Просмотр отчетности</h5>
+                                    <p class="card-text">Анализ отчетов и статистики по дефектам</p>
+                                    <a href="{% url 'accounts:viewer_analytics' %}" class="btn btn-light">Анализировать</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Быстрый доступ -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0"> Быстрый доступ</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-2">
+                                            <a href="{% url 'accounts:viewer_projects' %}" class="btn btn-outline-info w-100">
+                                                 Проекты
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <a href="{% url 'accounts:viewer_defects' %}" class="btn btn-outline-warning w-100">
+                                                 Дефекты
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <a href="{% url 'accounts:viewer_analytics' %}" class="btn btn-outline-secondary w-100">
+                                                 Аналитика
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

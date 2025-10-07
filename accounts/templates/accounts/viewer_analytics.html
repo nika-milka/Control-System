@@ -1,0 +1,114 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Аналитика - Панель руководителя{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} (Руководитель)</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h1 class="mb-4"> Аналитика и статистика</h1>
+
+    <!-- Просроченные дефекты -->
+    {% if overdue_defects %}
+    <div class="card mb-4 border-danger">
+        <div class="card-header bg-danger text-white">
+            <h5 class="mb-0"> Просроченные дефекты ({{ overdue_defects.count }})</h5>
+        </div>
+        <div class="card-body">
+            {% for defect in overdue_defects %}
+            <div class="alert alert-warning">
+                <strong>{{ defect.title }}</strong><br>
+                <small>
+                    Проект: {{ defect.project.name }} | 
+                    Исполнитель: {{ defect.assigned_to.username }} | 
+                    Срок: {{ defect.deadline }}
+                </small>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Статистика по статусам -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"> Распределение по статусам</h5>
+                </div>
+                <div class="card-body">
+                    {% for item in defects_by_status %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>
+                            {% if item.status == 'new' %}Новая
+                            {% elif item.status == 'in_progress' %}В работе
+                            {% elif item.status == 'checking' %}На проверке
+                            {% elif item.status == 'closed' %}Закрыта
+                            {% elif item.status == 'cancelled' %}Отменена
+                            {% else %}{{ item.status }}{% endif %}
+                        </span>
+                        <span class="badge bg-primary">{{ item.count }}</span>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">Нет данных</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"> Распределение по приоритетам</h5>
+                </div>
+                <div class="card-body">
+                    {% for item in defects_by_priority %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>
+                            {% if item.priority == 'low' %}Низкий
+                            {% elif item.priority == 'medium' %}Средний
+                            {% elif item.priority == 'high' %}Высокий
+                            {% elif item.priority == 'critical' %}Критический
+                            {% else %}{{ item.priority }}{% endif %}
+                        </span>
+                        <span class="badge bg-{% if item.priority == 'critical' %}danger{% elif item.priority == 'high' %}warning{% else %}info{% endif %}">
+                            {{ item.count }}
+                        </span>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">Нет данных</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Статистика по проектам -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0"> Дефекты по проектам</h5>
+        </div>
+        <div class="card-body">
+            {% for item in defects_by_project %}
+            <div class="mb-3">
+                <h6>{{ item.project__name|default:"Без проекта" }}</h6>
+                <div class="progress" style="height: 25px;">
+                    <div class="progress-bar" style="width: 100%">
+                        {{ item.count }} дефектов
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-muted">Нет данных по проектам</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

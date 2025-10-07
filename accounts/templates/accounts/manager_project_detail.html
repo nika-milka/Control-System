@@ -1,0 +1,148 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Проект: {{ project.name }} - Панель менеджера{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} (Менеджер)</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Проект: {{ project.name }}</h1>
+        <a href="{% url 'accounts:manager_projects_list' %}" class="btn btn-secondary">← Назад к проектам</a>
+    </div>
+
+    <!-- Информация о проекте -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0"> Информация о проекте</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Название:</strong> {{ project.name }}</p>
+                    <p><strong>Описание:</strong> {{ project.description|linebreaks }}</p>
+                    <p><strong>Менеджер проекта:</strong> {{ project.manager.username }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Дата начала:</strong> {{ project.start_date }}</p>
+                    <p><strong>Дата окончания:</strong> {{ project.end_date }}</p>
+                    <p><strong>Создатель:</strong> {{ project.created_by.username }}</p>
+                    <p><strong>Дата создания:</strong> {{ project.created_at|date:"d.m.Y H:i" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Статистика -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body text-center">
+                    <h3>{{ total_defects }}</h3>
+                    <p>Всего дефектов</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body text-center">
+                    <h3>{{ open_defects }}</h3>
+                    <p>Активных</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-body text-center">
+                    <h3>{{ closed_defects }}</h3>
+                    <p>Завершено</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info">
+                <div class="card-body text-center">
+                    <h3>{{ completion_rate|floatformat:0 }}%</h3>
+                    <p>Выполнено</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Прогресс -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0"> Прогресс выполнения</h5>
+        </div>
+        <div class="card-body">
+            <div class="progress" style="height: 30px;">
+                <div class="progress-bar bg-success" style="width: {{ completion_rate }}%">
+                    {{ completion_rate|floatformat:0 }}%
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Дефекты проекта -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"> Дефекты проекта</h5>
+            <a href="{% url 'accounts:manager_defects_list' %}?project={{ project.id }}" class="btn btn-sm btn-outline-primary">
+                Все дефекты
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Дефект</th>
+                            <th>Исполнитель</th>
+                            <th>Статус</th>
+                            <th>Приоритет</th>
+                            <th>Срок</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for defect in defects|slice:":5" %}
+                        <tr>
+                            <td>
+                                <strong>{{ defect.title }}</strong>
+                                <br>
+                                <small class="text-muted">{{ defect.description|truncatewords:5 }}</small>
+                            </td>
+                            <td>{{ defect.assigned_to.username }}</td>
+                            <td>
+                                <span class="badge bg-{{ defect.get_status_badge_color }}">
+                                    {{ defect.get_status_display }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge bg-{{ defect.get_priority_badge_color }}">
+                                    {{ defect.get_priority_display }}
+                                </span>
+                            </td>
+                            <td>{{ defect.deadline }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">
+                                В этом проекте пока нет дефектов
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

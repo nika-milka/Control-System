@@ -1,0 +1,202 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Панель инженера - Система контроля{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">
+                {{ user.username }} ({{ role_display }})
+            </span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">Панель инженера</h1>
+                    <p class="card-text">Добро пожаловать, <strong>{{ user.username }}</strong>!</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-4">
+                            <div class="card text-white bg-success h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title"> Регистрация дефектов</h5>
+                                    <p class="card-text">Добавление новых дефектов на строительных объектах</p>
+                                    <a href="{% url 'accounts:engineer_defect_create' %}" class="btn btn-light">Создать дефект</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card text-white bg-info h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title"> Мои дефекты</h5>
+                                    <p class="card-text">Просмотр и управление назначенными дефектами</p>
+                                    <a href="{% url 'accounts:engineer_defects_list' %}" class="btn btn-light">Перейти к списку</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-4 mb-3">
+                            <div class="card text-white bg-warning h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title"> Редактирование</h5>
+                                    <p class="card-text">Обновление информации по дефектам</p>
+                                    <a href="{% url 'accounts:engineer_defects_list' %}" class="btn btn-light">Редактировать</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card text-white bg-secondary h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title"> Комментарии</h5>
+                                    <p class="card-text">Обсуждение дефектов с коллегами</p>
+                                    <a href="{% url 'accounts:engineer_defects_list' %}" class="btn btn-light">Обсудить</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card text-white bg-dark h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title"> Статистика</h5>
+                                    <p class="card-text">Аналитика и отчетность по дефектам</p>
+                                    <a href="{% url 'accounts:engineer_stats' %}" class="btn btn-light">Просмотреть</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Быстрый доступ -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0"> Быстрый доступ</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3 mb-2">
+                                            <a href="{% url 'accounts:engineer_defect_create' %}" class="btn btn-outline-primary w-100">
+                                                 Новый дефект
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3 mb-2">
+                                            <a href="{% url 'accounts:engineer_defects_list' %}" class="btn btn-outline-success w-100">
+                                                 Все дефекты
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3 mb-2">
+                                            <a href="{% url 'accounts:engineer_defects_list' %}?status=new" class="btn btn-outline-info w-100">
+                                                 Новые
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3 mb-2">
+                                            <a href="{% url 'accounts:engineer_stats' %}" class="btn btn-outline-warning w-100">
+                                                 Статистика
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    {% if user.assigned_defects.all %}
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0"> Последние дефекты</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Заголовок</th>
+                                                    <th>Проект</th>
+                                                    <th>Статус</th>
+                                                    <th>Приоритет</th>
+                                                    <th>Срок</th>
+                                                    <th>Действия</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for defect in user.assigned_defects.all|slice:":5" %}
+                                                <tr>
+                                                    <td>{{ defect.title|truncatewords:5 }}</td>
+                                                    <td>{{ defect.project.name }}</td>
+                                                    <td>
+                                                        <span class="badge bg-{% if defect.status == 'new' %}primary{% elif defect.status == 'in_progress' %}warning{% elif defect.status == 'closed' %}success{% else %}secondary{% endif %}">
+                                                            {{ defect.get_status_display }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge bg-{% if defect.priority == 'critical' %}danger{% elif defect.priority == 'high' %}warning{% else %}info{% endif %}">
+                                                            {{ defect.get_priority_display }}
+                                                        </span>
+                                                    </td>
+                                                    <td>{{ defect.deadline }}</td>
+                                                    <td>
+                                                        <a href="{% url 'accounts:engineer_defect_detail' defect.id %}" class="btn btn-sm btn-outline-primary">
+                                                            Подробнее
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {% if user.assigned_defects.count > 5 %}
+                                    <div class="text-center mt-3">
+                                        <a href="{% url 'accounts:engineer_defects_list' %}" class="btn btn-primary">
+                                            Показать все дефекты ({{ user.assigned_defects.count }})
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="text-muted"> Пока нет назначенных дефектов</h5>
+                                    <p class="text-muted">Начните работу с создания первого дефекта</p>
+                                    <a href="{% url 'accounts:engineer_defect_create' %}" class="btn btn-success btn-lg">
+                                         Создать первый дефект
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    transition: transform 0.2s;
+}
+.card:hover {
+    transform: translateY(-2px);
+}
+.btn {
+    transition: all 0.2s;
+}
+</style>
+{% endblock %}

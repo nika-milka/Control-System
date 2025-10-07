@@ -1,0 +1,54 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Дефекты - Панель инженера{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'accounts:dashboard' %}"> СистемаКонтроля</a>
+        <div class="navbar-nav ms-auto">
+            <span class="navbar-text me-3">{{ user.username }} (Инженер)</span>
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body text-center">
+            <h1> Управление дефектами</h1>
+            <p class="lead">Это страница для управления дефектами (в разработке)</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5> Просмотр дефектов</h5>
+                            <p>Список всех назначенных дефектов</p>
+                            <a href="{% url 'accounts:engineer_defects_list' %}" class="btn btn-primary">Перейти</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5> Создать дефект</h5>
+                            <p>Добавление нового дефекта</p>
+                            <a href="{% url 'accounts:engineer_defect_create' %}" class="btn btn-success">Перейти</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5> Статистика</h5>
+                            <p>Аналитика по дефектам</p>
+                            <a href="{% url 'accounts:engineer_stats' %}" class="btn btn-info">Перейти</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
